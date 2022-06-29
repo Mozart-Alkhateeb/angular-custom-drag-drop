@@ -2,19 +2,9 @@
   <div class="example-container">
     <h2>All items</h2>
 
-    <div cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
-      (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="noReturnPredicate">
-      <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
-    </div>
-  </div>
-
-  <div class="example-container">
-    <h2>Shopping basket</h2>
-
-    <div cdkDropList [cdkDropListData]="basket" class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of basket" cdkDrag>
-        {{item}}
-      </div>
+    <div id="all-items" cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
+      [cdkDropListEnterPredicate]="noReturnPredicate">
+      <div class="example-box" *ngFor="let item of items" cdkDrag>{{item.name}}</div>
     </div>
   </div>
 
@@ -23,8 +13,17 @@
 
     <div cdkDropList [cdkDropListData]="group.items" class="example-list" (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let item of group.items" cdkDrag>
-        {{item}}
+        {{item.name}}
       </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <div id="delete-list" cdkDropList [cdkDropListData]="deletedItems" class="example-list"
+      (cdkDropListDropped)="drop($event)" [cdkDropListEnterPredicate]="deletePredicate">
+      DELETE ZONE
+      <br>
+      {{deletedItems|json}}
     </div>
   </div>
 </div>

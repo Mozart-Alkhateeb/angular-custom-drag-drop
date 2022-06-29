@@ -1,6 +1,8 @@
 import { Component } from "@angular/core";
 import {
+  CdkDrag,
   CdkDragDrop,
+  copyArrayItem,
   moveItemInArray,
   transferArrayItem,
 } from "@angular/cdk/drag-drop";
@@ -14,14 +16,42 @@ import {
   styleUrls: ["cdk-drag-drop-disabled-sorting-example.css"],
 })
 export class CdkDragDropDisabledSortingExample {
-  items = ["Carrots", "Tomatoes", "Onions", "Apples", "Avocados"];
+  items = [
+    { id: 1, name: "Carrots" },
+    { id: 2, name: "Tomatoes" },
+    { id: 3, name: "Onions" },
+    { id: 4, name: "Apples" },
+    { id: 5, name: "Avocados" },
+  ];
 
-  groups = [{ name: "Kitchen", items: ["Oranges", "Bananas", "Cucumbers"] }];
-  basket = ["Oranges", "Bananas", "Cucumbers"];
+  groups = [
+    {
+      name: "Kitchen",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
+  ];
+
+  deletedItems = [];
+
+  noReturnPredicate() {
+    return false;
+  }
 
   drop(event: CdkDragDrop<string[]>) {
+    // console.log("event", event);
     if (event.previousContainer === event.container) {
       moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else if (event.previousContainer.id === "all-items") {
+      copyArrayItem(
+        event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
@@ -36,8 +66,8 @@ export class CdkDragDropDisabledSortingExample {
     }
   }
 
-  noReturnPredicate() {
-    return false;
+  deletePredicate(item: CdkDrag<any>) {
+    return item.dropContainer.id !== "all-items";
   }
 }
 
