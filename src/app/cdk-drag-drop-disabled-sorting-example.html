@@ -1,22 +1,28 @@
 <div cdkDropListGroup>
-  <div class="example-container">
-    <h2>All items</h2>
+  <main>
+    <div>
+      <div class="example-container">
+        <h2>All items</h2>
 
-    <div id="all-items" cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
-      [cdkDropListEnterPredicate]="noReturnPredicate">
-      <div class="example-box" *ngFor="let item of items" cdkDrag>{{item.name}}</div>
-    </div>
-  </div>
-
-  <div class="example-container" *ngFor="let group of groups">
-    <h2>{{group.name}}</h2>
-
-    <div cdkDropList [cdkDropListData]="group.items" class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of group.items" cdkDrag>
-        {{item.name}}
+        <div id="all-items" cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
+          [cdkDropListEnterPredicate]="noReturnPredicate">
+          <div class="example-box" *ngFor="let item of items" cdkDrag [cdkDragData]="item">{{item.name}}</div>
+        </div>
       </div>
     </div>
-  </div>
+    <div>
+      <div class="example-container" *ngFor="let group of groups">
+        <h2>{{group.name}}</h2>
+
+        <div cdkDropList [cdkDropListData]="group.items" class="example-list" (cdkDropListDropped)="drop($event)"
+          [cdkDropListEnterPredicate]="groupPredicate">
+          <div class="example-box" *ngFor="let item of group.items" cdkDrag [cdkDragData]="item">
+            {{item.name}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <div class="example-container">
     <div id="delete-list" cdkDropList [cdkDropListData]="deletedItems" class="example-list"

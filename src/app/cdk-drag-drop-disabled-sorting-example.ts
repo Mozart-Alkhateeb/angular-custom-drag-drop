@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import {
   CdkDrag,
   CdkDragDrop,
+  CdkDropList,
   copyArrayItem,
   moveItemInArray,
   transferArrayItem,
@@ -33,6 +34,62 @@ export class CdkDragDropDisabledSortingExample {
         { id: 8, name: "Cucumbers" },
       ],
     },
+    {
+      name: "Resto",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
+    {
+      name: "Pento",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
+    {
+      name: "Cresto",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
+    {
+      name: "Cresto",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
+    {
+      name: "Cresto",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
+    {
+      name: "Cresto",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
+    {
+      name: "Cresto",
+      items: [
+        { id: 6, name: "Oranges" },
+        { id: 7, name: "Bananas" },
+        { id: 8, name: "Cucumbers" },
+      ],
+    },
   ];
 
   deletedItems = [];
@@ -42,7 +99,6 @@ export class CdkDragDropDisabledSortingExample {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    // console.log("event", event);
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -63,7 +119,15 @@ export class CdkDragDropDisabledSortingExample {
         event.previousIndex,
         event.currentIndex
       );
+
+      if (event.container.id === "delete-list") {
+        this.deletedItems = [];
+      }
     }
+  }
+
+  groupPredicate(item: CdkDrag<any>, drop: CdkDropList) {
+    return !drop.data.find((el: any) => el.id === item.data.id);
   }
 
   deletePredicate(item: CdkDrag<any>) {
